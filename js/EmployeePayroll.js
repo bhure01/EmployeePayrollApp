@@ -12,7 +12,7 @@ class EmployeePayrollData
         return this._name; 
     }
     set name(name) {
-        let nameRegex = RegExp('^[A-Z1{1}[a-zA-Z\\sl{2,}$')        
+        let nameRegex = RegExp("^[A-Z]{1}[a-z]{2,}$")        
         if (nameRegex.test(name))
             this._name = name;
         else throw 'Name is Incorrect!';
@@ -43,7 +43,7 @@ class EmployeePayrollData
         return this._salary; 
     } 
     set salary(salary) {
-        this._satary = salary;
+        this._salary = salary;
     }    
 
     get note() { 
@@ -58,16 +58,17 @@ class EmployeePayrollData
     } 
     set startDate(startDate) {
         this._startDate = startDate;
+        //alert(new Date().toLocaleDateString());  
     }    
 
     // method
     toString() {
     const options = {year: 'numeric', month: 'long', day: 'numeric' };
-    const empDate = !this.startDate ? "undefined" : 
-                    this.startDate.toLocaleDateString("en-US", options);
+    const empDate = this.startDate === "undefined" ? "undefined":
+                    this.startDate;
     return "id=" + this.id + ", name.'" + this.name + ", gender='" + this.gender + 
             ", profilePic='" + this.profilePic + ", department=" + this.department + 
-            ", salary=" + this.satary + ", startDate=" + empDate + ", note=" + this.note;
+            ", salary=" + this.salary + ", startDate=" + empDate + ", note=" + this.note;
     }
 }    
 
@@ -101,3 +102,99 @@ output.textContent = salary.value;
 salary.addEventListener('input', function() {
     output.textContent = salary.value;
 });
+
+
+const text = document.querySelector('#name');
+const textError = document.querySelector('.text-error'); 
+text.addEventListener('input', function() {
+        let nameRegex = RegExp("^[A-Z]{1}[a-z]{2,}$");
+        if (nameRegex.test(text.value)) 
+            textError.textContent = ""; 
+        else textError.textContent = "Name is incorrect"; 
+    }); 
+
+
+const save=()=>{
+    try {
+              let employeePayrollData = createEmployeePayroll();
+              createAndUpdateStorage(employeePayrollData);
+        } 
+        catch (e) {
+          alert(e);
+          return;
+        }
+} 
+      
+const createEmployeePayroll=()=>{
+    let employeePayrollData = new EmployeePayrollData(); 
+        try{
+                employeePayrollData.name = getInputValueById('#name'); 
+                let date = getInputValueById('#month')+" "+getInputValueById('#day')+" "+ 
+                        getInputValueById('#year') ;
+                date= Date.parse(date)//.toLocaleDateString();
+                employeePayrollData.startDate = new Date(date).toLocaleDateString();
+            } 
+            catch (e)
+                {
+                    //setTextValue('.text-error', e);
+                    throw e;
+                }
+    employeePayrollData.profilePic = getSelectedValues('[name=profile]').pop(); 
+    employeePayrollData.gender = getSelectedValues('[name=gender]').pop(); 
+    employeePayrollData.department = getSelectedValues('[name=department]');
+    employeePayrollData.salary = getInputValueById('#salary'); 
+    employeePayrollData.note = getInputValueById('#notes');
+  
+  //alert(new Date(date).toLocaleDateString()) 
+  //alert(new Date().toLocaleDateString())           
+    alert(employeePayrollData.toString());
+    return employeePayrollData;
+}
+      
+const getSelectedValues = (propertyValue) =>{
+    let allItems = document.querySelectorAll(propertyValue); 
+    let selItems = [];
+    allItems.forEach(item =>{
+         if(item.checked) 
+            selItems.push(item.value);
+    });
+     return selItems;
+}
+
+/*
+* 1: querySelector is the newer feature.
+* 2: The querySelector method can be used when selecting by element name,
+*   nesting, or class name.
+* 3: querySetector lets you find elements with rules that can't be
+*   expressed with getElementById
+*/
+
+const getInputValueById=(id)=>{
+   let value = document.querySelector(id).value; 
+   return value;
+}
+
+/*
+* 1: getElementById is better supported than querySelector in older versions
+*   of the browsers.
+* 2: The thing with getElementById is that it only allows to select an
+*   element by its id.
+*/
+const getInputElementValue = (id) => {
+    let value = document.getElementById(id).value; 
+    return value;
+}
+ 
+ 
+function createAndUpdateStorage(employeePayrollData){
+
+    let employeePayrollList = JSON.parse(localStorage.getItem("EmployeePayrollList"));
+ 
+    if(employeePayrollList != undefined){
+      employeePayrollList.push(employeePayrollData);
+    } else{
+      employeePayrollList = [employeePayrollData]
+    }
+    alert(employeePayrollList.toString());
+    localStorage.setItem("EmployeePayrollList", JSON.stringify(employeePayrollList))
+ } 
