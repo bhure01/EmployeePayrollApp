@@ -58,7 +58,7 @@ class EmployeePayrollData
     } 
     set startDate(startDate) {
         this._startDate = startDate;
-        //alert(new Date().toLocaleDateString());  
+        //console.log(new Date().toLocaleDateString());  
     }    
 
     // method
@@ -120,7 +120,7 @@ const save=()=>{
               createAndUpdateStorage(employeePayrollData);
         } 
         catch (e) {
-          alert(e);
+          console.log(e);
           return;
         }
 } 
@@ -145,9 +145,9 @@ const createEmployeePayroll=()=>{
     employeePayrollData.salary = getInputValueById('#salary'); 
     employeePayrollData.note = getInputValueById('#notes');
   
-  //alert(new Date(date).toLocaleDateString()) 
-  //alert(new Date().toLocaleDateString())           
-    alert(employeePayrollData.toString());
+  //console.log(new Date(date).toLocaleDateString()) 
+  //console.log(new Date().toLocaleDateString())           
+    console.log(employeePayrollData.toString());
     return employeePayrollData;
 }
       
@@ -195,6 +195,6 @@ function createAndUpdateStorage(employeePayrollData){
     } else{
       employeePayrollList = [employeePayrollData]
     }
-    alert(employeePayrollList.toString());
+    console.log(employeePayrollList.toString());
     localStorage.setItem("EmployeePayrollList", JSON.stringify(employeePayrollList))
  } 
