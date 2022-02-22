@@ -147,27 +147,19 @@
 										</div>
 									</div>
 									<div class="row-content">
-											<label class="label text" for="notes">Notes
-											</label>
-											<textarea class="input" id="notes" name="notes" style="height: 100px">
-											</textarea>
-									</div>
-									<div class="buttonParent">
-											<a href="css/form.css" class="button cancelButton">Cancel</a>
-											<div class="submit-reset">
-													<button type="submit" class="button submitButton" id="submitButton">Submit</button>
-													<button type="reset" class="button resetButton" id="resetButton">Reset</button>                       
-									</div>
-				</div>
-    </form>
-		<script>
-			const salary = document.querySelector('#salary'); 
-			const output = document.querySelector('.salary-output'); 
-			output.textContent = salary.value;
-			salary.addEventListener('input', function() {
-					output.textContent = salary.value;
-			}); 
-		 </script> 
+                    <label class="label text" for="notes">Notes
+                    </label>
+                    <textarea class="input" id="notes" name="notes" style="height: 100px">
+                    </textarea>
+                </div>
+                <div class="buttonParent">
+                    <a href="./form.html" class="button cancelButton">Cancel</a>
+                    <div class="submit-reset">
+                        <button type="submit" class="button submitButton" id="submitButton">Submit</button>
+                        <button type="reset" class="button resetButton" id="resetButton">Reset</button>
+                    </div>
+                </div>
+            </form>
+            <script src="../js/EmployeePayroll.js"></script>
 </body>
-</head>
 </html>
