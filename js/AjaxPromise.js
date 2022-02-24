@@ -15,12 +15,12 @@ function makePromiseCall(methodType, url, sync=true, data=null) {
       }
   }
   xhr.open(methodType, url, async);
-if (data){
-  console.log(JSON.stringify(data));
-  xhr.setRequestHeader("Content-Type", "application/json");
-  xhr.send(JSON.stringify(data));
+  if (data){
+    console.log(JSON.stringify(data));
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.send(JSON.stringify(data));
  } else xhr.send();
- console.log(methodType+ "request sent to the server");
+  console.log(methodType+ "request sent to the server");
 });
 }
 
@@ -38,7 +38,7 @@ makePromiseCall("DELETE", deleteURL, false).then(responseText => {
 
 const postURL = "http://localhost:3000/employees";
 const emplData = { "name": "Harry", "salary": "5000"};
-makeAJAXCall("POST", postURL, true, emplData).then(responseText => {
+makePromiseCall("POST", postURL, true, emplData).then(responseText => {
   console.log("User Added: " +responseText)
 })
 .catch(error => console.log("POST ERROR STATUS: " +JSON.stringify(error)));
