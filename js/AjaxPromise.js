@@ -19,9 +19,9 @@ function makePromiseCall(methodType, url, sync=true, data=null) {
     console.log(JSON.stringify(data));
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.send(JSON.stringify(data));
- } else xhr.send();
+  } else xhr.send();
   console.log(methodType+ "request sent to the server");
-});
+  });
 }
 
 const getURL = "http://127.0.0.1:3000/employees/1";
